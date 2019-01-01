@@ -1,0 +1,6 @@
+framework module Pods_HealthyEating2 {
+  umbrella header "Pods-HealthyEating2-umbrella.h"
+
+  export *
+  module * { export * }
+}
