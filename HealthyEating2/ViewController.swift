@@ -7,14 +7,105 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+
+class CheckBox: UIButton {
+    // Images
+    let checkedImage = UIImage(named: "ic_check_box")! as UIImage
+    let uncheckedImage = UIImage(named: "ic_check_box_outline_blank")! as UIImage
+    var property: String = ""
+    // Bool property
+    var isChecked: Bool = false {
+        didSet{
+            if isChecked == true {
+                self.setImage(checkedImage, for: UIControl.State.normal)
+            } else {
+                self.setImage(uncheckedImage, for: UIControl.State.normal)
+            }
+        }
+    }
+    
+    override func awakeFromNib() {
+        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
+        self.isChecked = false
+    }
+    
+    @objc func buttonClicked(sender: UIButton) {
+        if sender == self {
+            isChecked = !isChecked
+        }
+    }
+}
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if(FBSDKAccessToken.current() != nil) {
+            perform(#selector(showTabView), with: nil, afterDelay: 0)
+            
+        } else {
+            UserDefaults.standard.set(false, forKey: "gluten_free")
+            UserDefaults.standard.set(false, forKey: "vegan")
+            UserDefaults.standard.set(false, forKey: "scd")
+            UserDefaults.standard.set(false, forKey: "nut_free")
+            UserDefaults.standard.set(false, forKey: "lactose_free")
+            
+            //if they have previously logged in, set the user defaults to what it says in the database
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+            controller.callPreferencesAPI()
+        }
+        
     }
-
+    
+    @objc func showTabView() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "TabController")
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func login_tapped(_ sender: Any) {
+        let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
+        print("hello?")
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self){(result, error) in
+            if(error == nil) {
+                print("here!!")
+               let fbLoginResult: FBSDKLoginManagerLoginResult = result!
+                if fbLoginResult.grantedPermissions != nil {
+                    if(fbLoginResult.grantedPermissions.contains("email")) {
+                        self.getFBUserData()
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let controller = storyboard.instantiateViewController(withIdentifier: "TabController")
+                        self.present(controller, animated: true, completion: nil)
+                        
+                   }
+               }
+            }
+            print("error:", error)
+        
+        }
+    }
+    
+    func getFBUserData() {
+        if((FBSDKAccessToken.current()) != nil) {
+            print("token", FBSDKAccessToken.current())
+            print("expiration_date", FBSDKAccessToken.current().expirationDate)
+            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, last_name, picture.type(large), email"]).start(completionHandler:{(connection, result, error) -> Void in
+                if (error == nil) {
+                    let faceDic = result as! [String:AnyObject]
+                    print(faceDic)
+                    let email = faceDic["email"] as! String
+                    print(email)
+                    let id = faceDic["id"] as! String
+                    print(id)
+                }
+            })
+        }
+    }
+    
 
 }
 
