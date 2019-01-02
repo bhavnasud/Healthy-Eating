@@ -80,25 +80,37 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txi-bB-UjA">
-                                <rect key="frame" x="132" y="343" width="111" height="30"/>
+                                <rect key="frame" x="132" y="588" width="111" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Testing Rest Api"/>
                                 <connections>
                                     <action selector="test_button:" destination="1tq-2R-y7R" eventType="touchUpInside" id="HV5-0r-V4z"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Qp-6a-3Ys" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="113" width="375" height="467"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="O9W-ym-dZ3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="xBa-Dm-XL5"/>
+                    <navigationItem key="navigationItem" title="Home" id="LqI-7c-PpW">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="NJ7-um-fUA">
+                            <connections>
+                                <action selector="logout_tapped:" destination="1tq-2R-y7R" id="Ruq-aV-dOd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="button" destination="Txi-bB-UjA" id="MrP-iO-cc7"/>
+                        <outlet property="mapView" destination="2Qp-6a-3Ys" id="mmO-sT-08y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDz-YN-vP1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1973.5999999999999" y="98.50074962518741"/>
+            <point key="canvasLocation" x="2912.8000000000002" y="98.50074962518741"/>
         </scene>
         <!--Preferences-->
         <scene sceneID="sQo-XV-5m1">
@@ -108,9 +120,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVg-Hu-CcC">
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVg-Hu-CcC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Preferences" id="M5r-Df-OiK">
                                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="O1y-gx-YzR">
@@ -122,7 +133,7 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbk-zT-QrT" userLabel="gluten_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="115" width="30" height="30"/>
+                                <rect key="frame" x="89" y="163" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="swl-PK-mTk"/>
                                     <constraint firstAttribute="height" constant="30" id="y2y-32-22Y"/>
@@ -132,7 +143,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9e-xA-qaN" userLabel="vegan" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="165" width="30" height="30"/>
+                                <rect key="frame" x="89" y="213" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="6qT-Zt-Qfm"/>
                                     <constraint firstAttribute="height" constant="30" id="v3r-XI-8vx"/>
@@ -142,7 +153,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CyO-Ug-IAx" userLabel="scd" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="215" width="30" height="30"/>
+                                <rect key="frame" x="89" y="263" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="Emy-Od-mK2"/>
                                     <constraint firstAttribute="height" constant="30" id="VJO-4X-q9d"/>
@@ -152,7 +163,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" tag="4" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gro-87-jg1" userLabel="nut_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="265" width="30" height="30"/>
+                                <rect key="frame" x="89" y="313" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="PZp-UP-LPR"/>
                                     <constraint firstAttribute="height" constant="30" id="y8W-3g-dsr"/>
@@ -162,7 +173,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" tag="5" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEf-Nl-7zw" userLabel="lactose_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="315" width="30" height="30"/>
+                                <rect key="frame" x="89" y="363" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="UNu-bU-HlO"/>
                                     <constraint firstAttribute="width" constant="30" id="jcm-IP-fmQ"/>
@@ -172,42 +183,42 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u97-qo-XaV">
-                                <rect key="frame" x="203" y="124" width="0.0" height="0.0"/>
+                                <rect key="frame" x="203" y="172" width="0.0" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Vegan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCb-z8-ZJ4">
-                                <rect key="frame" x="127" y="170" width="49" height="21"/>
+                                <rect key="frame" x="127" y="218" width="49" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SCD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6he-CW-2oU">
-                                <rect key="frame" x="127" y="220" width="35" height="21"/>
+                                <rect key="frame" x="127" y="268" width="35" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nut-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQW-du-pO9">
-                                <rect key="frame" x="127" y="270" width="65" height="21"/>
+                                <rect key="frame" x="127" y="318" width="65" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lactose-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbA-bh-uhf">
-                                <rect key="frame" x="127" y="320" width="99" height="21"/>
+                                <rect key="frame" x="127" y="368" width="99" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gluten-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="US2-B7-3wW">
-                                <rect key="frame" x="127" y="120" width="88" height="21"/>
+                                <rect key="frame" x="127" y="168" width="88" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -226,6 +237,7 @@
                         <constraints>
                             <constraint firstItem="bEf-Nl-7zw" firstAttribute="top" secondItem="Gro-87-jg1" secondAttribute="bottom" constant="20" id="6kz-qt-dMC"/>
                             <constraint firstItem="bEf-Nl-7zw" firstAttribute="top" secondItem="Gro-87-jg1" secondAttribute="bottom" constant="20" id="G3h-Qi-AVd"/>
+                            <constraint firstItem="Kbk-zT-QrT" firstAttribute="top" secondItem="gVg-Hu-CcC" secondAttribute="bottom" constant="99" id="MPy-3c-J5f"/>
                             <constraint firstItem="Gro-87-jg1" firstAttribute="top" secondItem="CyO-Ug-IAx" secondAttribute="bottom" constant="20" id="RfM-TG-RQX"/>
                             <constraint firstItem="Gro-87-jg1" firstAttribute="top" secondItem="CyO-Ug-IAx" secondAttribute="bottom" constant="20" id="Sgg-3w-jiq"/>
                             <constraint firstItem="r9e-xA-qaN" firstAttribute="top" secondItem="Kbk-zT-QrT" secondAttribute="bottom" constant="20" id="Vle-l2-R5m"/>
@@ -234,11 +246,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jcI-U1-Yy9"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Preferences" id="xE0-Nq-9cm"/>
+                    <navigationItem key="navigationItem" title="Preferences" id="980-DS-OSW">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="lIJ-E0-IS3">
+                            <connections>
+                                <action selector="logout_tapped:" destination="enY-5j-GEw" id="eXv-1X-gM0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfB-v6-qhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1160.8" y="994.45277361319347"/>
+            <point key="canvasLocation" x="2100" y="994.45277361319347"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ulq-ml-rFW">
@@ -251,16 +269,55 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="1tq-2R-y7R" kind="relationship" relationship="viewControllers" id="2mE-tV-eBp"/>
-                        <segue destination="enY-5j-GEw" kind="relationship" relationship="viewControllers" id="frR-92-M7g"/>
+                        <segue destination="dPc-Ak-FCD" kind="relationship" relationship="viewControllers" id="2mE-tV-eBp"/>
+                        <segue destination="Zpw-bd-VsD" kind="relationship" relationship="viewControllers" id="frR-92-M7g"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZbC-Ra-eRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1034.4000000000001" y="98.50074962518741"/>
         </scene>
+        <!--Home-->
+        <scene sceneID="HVb-6r-yFI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dPc-Ak-FCD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="default_marker.png" selectedImage="default_marker.png" id="xBa-Dm-XL5"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0ht-eD-fUn">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1tq-2R-y7R" kind="relationship" relationship="rootViewController" id="Mxu-EV-doq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S0c-Fi-dY3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1973.5999999999999" y="98.50074962518741"/>
+        </scene>
+        <!--Preferences-->
+        <scene sceneID="6Hr-8Q-sf7">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zpw-bd-VsD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Preferences" id="xE0-Nq-9cm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bgX-MP-cVT">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="enY-5j-GEw" kind="relationship" relationship="rootViewController" id="Gul-c9-M7I"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6wc-xk-zK1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1160.8" y="994.45277361319347"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="default_marker.png" width="26" height="41"/>
         <image name="ic_check_box_outline_blank" width="512" height="512"/>
     </resources>
 </document>

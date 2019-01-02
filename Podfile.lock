@@ -17,11 +17,20 @@ PODS:
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.39.0):
     - FBSDKCoreKit
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
 
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FBSDKCoreKit (from `https://github.com/facebook/facebook-objc-sdk.git`, branch `master`)
+  - GoogleMaps
+  - GooglePlaces
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -29,6 +38,8 @@ SPEC REPOS:
     - FacebookCore
     - FacebookLogin
     - FBSDKLoginKit
+    - GoogleMaps
+    - GooglePlaces
 
 EXTERNAL SOURCES:
   FBSDKCoreKit:
@@ -46,7 +57,9 @@ SPEC CHECKSUMS:
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
   FBSDKCoreKit: 5aa4a666fe80c12621fb8d6214bfdbd18d3b5a88
   FBSDKLoginKit: 30ba5039a2c53d65a75103889bc2deebdacd5a1f
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
 
-PODFILE CHECKSUM: ea1d731b08dc3c938057e67fd415b221a0fc81b4
+PODFILE CHECKSUM: b554dd301be3b30235096306e663fcc8d7dceb46
 
 COCOAPODS: 1.6.0.beta.2

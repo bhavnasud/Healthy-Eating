@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import GoogleMaps
 
 struct Preferences: Decodable {
     let status: String
@@ -41,29 +42,33 @@ struct Item: Decodable {
     let lactose: Bool
 }
 
-class MapViewController: UIViewController {
 
+
+
+class MapViewController: UIViewController, CLLocationManagerDelegate {
+    private let locationManager = CLLocationManager()
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var mapView: GMSMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("loaded")
-        // Create a GMSCameraPosition that tells the map to display the
-        // coordinate -33.86,151.20 at zoom level 6.
-        //let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        //let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        //view = mapView
-        
-        // Creates a marker in the center of the map.
-        //let marker = GMSMarker()
-        //marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        //marker.title = "Sydney"
-        //marker.snippet = "Australia"
-        //marker.map = mapView
-        button.setTitle(FBSDKAccessToken.current()?.userID, for: .normal)
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        //5
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+        locationManager.startUpdatingLocation()
+        // Do any additional setup after loading the view.
+    }
+    
     @IBAction func logout_tapped(_ sender: Any) {
         let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
@@ -71,7 +76,7 @@ class MapViewController: UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
         self.present(controller, animated: true, completion: nil)
     }
-    
+
     @IBAction func test_button(_ sender: Any) {
         let result = callPreferencesAPI()
         //print("hi")
@@ -195,4 +200,32 @@ class MapViewController: UIViewController {
     }
     */
 
+}
+
+// MARK: - CLLocationManagerDelegate
+//1
+extension MapViewController {
+    // 2
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        // 3
+        guard status == .authorizedWhenInUse else {
+            return
+        }
+        // 4
+        locationManager.startUpdatingLocation()
+        
+    }
+    
+    // 6
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
+        }
+        
+        // 7
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+        
+        // 8
+        locationManager.stopUpdatingLocation()
+    }
 }
