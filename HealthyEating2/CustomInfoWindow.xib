@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CustomInfoWindow" customModule="HealthyEating2" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="180"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDK-BO-i5f">
+                    <rect key="frame" x="5" y="10" width="190" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vO-7C-I2h">
+                    <rect key="frame" x="5" y="41" width="190" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="knh-zy-SKh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+            <constraints>
+                <constraint firstItem="9vO-7C-I2h" firstAttribute="top" secondItem="kDK-BO-i5f" secondAttribute="bottom" constant="10" id="3Mo-8J-N3u"/>
+                <constraint firstItem="kDK-BO-i5f" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="7F7-Ko-lKK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9vO-7C-I2h" secondAttribute="trailing" constant="5" id="DvB-l0-Pe8"/>
+                <constraint firstItem="kDK-BO-i5f" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="NTk-B6-Vhl"/>
+                <constraint firstItem="kDK-BO-i5f" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="OLo-eM-Wcd"/>
+                <constraint firstItem="9vO-7C-I2h" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="RbB-D9-Agf"/>
+                <constraint firstItem="9vO-7C-I2h" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="mE5-nY-CXv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kDK-BO-i5f" secondAttribute="trailing" constant="5" id="sjy-Qu-lG1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="body_label" destination="9vO-7C-I2h" id="tAy-hX-T4y"/>
+                <outlet property="title_label" destination="kDK-BO-i5f" id="K7n-BS-FfO"/>
+            </connections>
+            <point key="canvasLocation" x="56" y="49.475262368815599"/>
+        </view>
+    </objects>
+</document>

@@ -52,11 +52,6 @@ class ViewController: UIViewController {
             UserDefaults.standard.set(false, forKey: "scd")
             UserDefaults.standard.set(false, forKey: "nut_free")
             UserDefaults.standard.set(false, forKey: "lactose_free")
-            
-            //if they have previously logged in, set the user defaults to what it says in the database
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-            controller.callPreferencesAPI()
         }
         
     }
@@ -78,8 +73,8 @@ class ViewController: UIViewController {
                     if(fbLoginResult.grantedPermissions.contains("email")) {
                         self.getFBUserData()
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let controller = storyboard.instantiateViewController(withIdentifier: "TabController")
-                        self.present(controller, animated: true, completion: nil)
+                        let tab_controller = storyboard.instantiateViewController(withIdentifier: "TabController")
+                        self.present(tab_controller, animated: true, completion: nil)
                         
                    }
                }
@@ -101,6 +96,39 @@ class ViewController: UIViewController {
                     print(email)
                     let id = faceDic["id"] as! String
                     print(id)
+                    //call api to add them to the database
+                    // prepare json data
+                    let json: [String: Any] = ["email": email,
+                                               "id": id,
+                                               "token": FBSDKAccessToken.current().tokenString]
+                    
+                    let jsonData = try? JSONSerialization.data(withJSONObject: json)
+                    
+                    // create post request
+                    let url = URL(string: "http://apptesting.getsandbox.com/login")!
+                    var request = URLRequest(url: url)
+                    request.httpMethod = "POST"
+                    
+                    // insert json data to the request
+                    request.httpBody = jsonData
+                    
+                    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                        guard let data = data, error == nil else {
+                            print(error?.localizedDescription ?? "No data")
+                            return
+                        }
+                        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                        if let responseJSON = responseJSON as? [String: Any] {
+                            print("response", responseJSON)
+                        }
+                    }
+                    
+                    task.resume()
+                    //set the user defaults to what it says in the database
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let map_controller = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+                    //set the preferences in the app to the preferences recieved from the database
+                    map_controller.callPreferencesAPI()
                 }
             })
         }

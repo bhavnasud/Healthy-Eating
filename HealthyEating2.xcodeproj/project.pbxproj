@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1B27BCD229DB2862376B3057 /* Pods_HealthyEating2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2967C1D2F5AAD5678D8C437 /* Pods_HealthyEating2UITests.framework */; };
 		885FDF213905C35E2F56EC11 /* Pods_HealthyEating2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A7F5311719DCABDE0218FB /* Pods_HealthyEating2Tests.framework */; };
+		9C259BD121DD68DE0083029A /* CustomInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C259BD021DD68DE0083029A /* CustomInfoWindow.xib */; };
+		9C259BD321DD695C0083029A /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C259BD221DD695C0083029A /* CustomInfoWindow.swift */; };
 		9C7245CB21DAA38D00E52C11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7245CA21DAA38D00E52C11 /* AppDelegate.swift */; };
 		9C7245CD21DAA38D00E52C11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7245CC21DAA38D00E52C11 /* ViewController.swift */; };
 		9C7245D021DAA38D00E52C11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C7245CE21DAA38D00E52C11 /* Main.storyboard */; };
@@ -46,6 +48,8 @@
 		8146ECBA3BC67E5DC6590B58 /* Pods-HealthyEating2UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthyEating2UITests.release.xcconfig"; path = "Target Support Files/Pods-HealthyEating2UITests/Pods-HealthyEating2UITests.release.xcconfig"; sourceTree = "<group>"; };
 		83B8F310DB2534E08F79AD81 /* Pods-HealthyEating2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthyEating2.release.xcconfig"; path = "Target Support Files/Pods-HealthyEating2/Pods-HealthyEating2.release.xcconfig"; sourceTree = "<group>"; };
 		94BD147D56B4566E302B4313 /* Pods-HealthyEating2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HealthyEating2Tests.release.xcconfig"; path = "Target Support Files/Pods-HealthyEating2Tests/Pods-HealthyEating2Tests.release.xcconfig"; sourceTree = "<group>"; };
+		9C259BD021DD68DE0083029A /* CustomInfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomInfoWindow.xib; sourceTree = "<group>"; };
+		9C259BD221DD695C0083029A /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		9C7245C721DAA38D00E52C11 /* HealthyEating2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthyEating2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7245CA21DAA38D00E52C11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C7245CC21DAA38D00E52C11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,7 +64,7 @@
 		9C7245EA21DAA39000E52C11 /* HealthyEating2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthyEating2UITests.swift; sourceTree = "<group>"; };
 		9C7245EC21DAA39000E52C11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C7245F821DAA74800E52C11 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
-		9C7245FA21DAA75500E52C11 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		9C7245FA21DAA75500E52C11 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		D2967C1D2F5AAD5678D8C437 /* Pods_HealthyEating2UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HealthyEating2UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0A7F5311719DCABDE0218FB /* Pods_HealthyEating2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HealthyEating2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -123,6 +127,8 @@
 				9C7245CE21DAA38D00E52C11 /* Main.storyboard */,
 				9C7245F821DAA74800E52C11 /* PreferencesViewController.swift */,
 				9C7245FA21DAA75500E52C11 /* MapViewController.swift */,
+				9C259BD021DD68DE0083029A /* CustomInfoWindow.xib */,
+				9C259BD221DD695C0083029A /* CustomInfoWindow.swift */,
 				9C7245D121DAA39000E52C11 /* Assets.xcassets */,
 				9C7245D321DAA39000E52C11 /* LaunchScreen.storyboard */,
 				9C7245D621DAA39000E52C11 /* Info.plist */,
@@ -280,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C259BD121DD68DE0083029A /* CustomInfoWindow.xib in Resources */,
 				9C7245D521DAA39000E52C11 /* LaunchScreen.storyboard in Resources */,
 				9C7245D221DAA39000E52C11 /* Assets.xcassets in Resources */,
 				9C7245D021DAA38D00E52C11 /* Main.storyboard in Resources */,
@@ -433,6 +440,7 @@
 				9C7245CD21DAA38D00E52C11 /* ViewController.swift in Sources */,
 				9C7245CB21DAA38D00E52C11 /* AppDelegate.swift in Sources */,
 				9C7245F921DAA74800E52C11 /* PreferencesViewController.swift in Sources */,
+				9C259BD321DD695C0083029A /* CustomInfoWindow.swift in Sources */,
 				9C7245FB21DAA75500E52C11 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
