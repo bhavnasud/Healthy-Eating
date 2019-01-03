@@ -84,6 +84,35 @@ class ViewController: UIViewController {
         }
     }
     
+    func postAction(email: String, id: String) {
+        let Url = String(format: "http://apptesting.getsandbox.com/login")
+        guard let serviceUrl = URL(string: Url) else { return }
+        let parameterDictionary = ["email" : email, "id" : id, "token": FBSDKAccessToken.current().tokenString]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
+            return
+        }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                }catch {
+                    print(error)
+                }
+            }
+            }.resume()
+    }
+
+    
     func getFBUserData() {
         if((FBSDKAccessToken.current()) != nil) {
             print("token", FBSDKAccessToken.current())
@@ -97,33 +126,7 @@ class ViewController: UIViewController {
                     let id = faceDic["id"] as! String
                     print(id)
                     //call api to add them to the database
-                    // prepare json data
-                    let json: [String: Any] = ["email": email,
-                                               "id": id,
-                                               "token": FBSDKAccessToken.current().tokenString]
-                    
-                    let jsonData = try? JSONSerialization.data(withJSONObject: json)
-                    
-                    // create post request
-                    let url = URL(string: "http://apptesting.getsandbox.com/login")!
-                    var request = URLRequest(url: url)
-                    request.httpMethod = "POST"
-                    
-                    // insert json data to the request
-                    request.httpBody = jsonData
-                    
-                    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                        guard let data = data, error == nil else {
-                            print(error?.localizedDescription ?? "No data")
-                            return
-                        }
-                        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                        if let responseJSON = responseJSON as? [String: Any] {
-                            print("response", responseJSON)
-                        }
-                    }
-                    
-                    task.resume()
+                    self.postAction(email: email, id: id)
                     //set the user defaults to what it says in the database
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let map_controller = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController

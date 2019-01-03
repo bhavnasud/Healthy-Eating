@@ -56,8 +56,41 @@ class PreferenceViewController: UIViewController {
             UserDefaults.standard.set(false, forKey: "lactose_free")
         }
         //WRITE THE UPDATED RESULTS TO THE DATABASE!!!
+        postAction()
     }
 
+    func postAction() {
+        let Url = String(format: "http://apptesting.getsandbox.com/updatepreference")
+        guard let serviceUrl = URL(string: Url) else { return }
+        let parameterDictionary = ["gluten_free" : UserDefaults.standard.bool(forKey: "gluten_free"),
+                                   "vegan" : UserDefaults.standard.bool(forKey: "vegan"),
+                                   "scd": UserDefaults.standard.bool(forKey: "scd"),
+                                   "nut_free": UserDefaults.standard.bool(forKey: "nut_free"),
+                                   "lactose_free": UserDefaults.standard.bool(forKey: "lactose_free"),
+                                   "token": FBSDKAccessToken.current()?.tokenString] as [String : Any]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
+            return
+        }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                }catch {
+                    print(error)
+                }
+            }
+            }.resume()
+    }
     
     override func viewDidLoad() {
         print("time to load")
