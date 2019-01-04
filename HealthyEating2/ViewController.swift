@@ -59,6 +59,7 @@ class ViewController: UIViewController {
     @objc func showTabView() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "TabController")
+        //let mapViewController = controller.children[0].children[0] as! MapViewController
         self.present(controller, animated: true, completion: nil)
     }
     
@@ -71,9 +72,9 @@ class ViewController: UIViewController {
                let fbLoginResult: FBSDKLoginManagerLoginResult = result!
                 if fbLoginResult.grantedPermissions != nil {
                     if(fbLoginResult.grantedPermissions.contains("email")) {
-                        self.getFBUserData()
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let tab_controller = storyboard.instantiateViewController(withIdentifier: "TabController")
+                        self.getFBUserData(tabController: tab_controller)
                         self.present(tab_controller, animated: true, completion: nil)
                         
                    }
@@ -113,7 +114,7 @@ class ViewController: UIViewController {
     }
 
     
-    func getFBUserData() {
+    func getFBUserData(tabController: UIViewController) {
         if((FBSDKAccessToken.current()) != nil) {
             print("token", FBSDKAccessToken.current())
             print("expiration_date", FBSDKAccessToken.current().expirationDate)
@@ -128,10 +129,11 @@ class ViewController: UIViewController {
                     //call api to add them to the database
                     self.postAction(email: email, id: id)
                     //set the user defaults to what it says in the database
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let map_controller = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+                    //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let map_controller = tabController.children[0] as! MapViewController
                     //set the preferences in the app to the preferences recieved from the database
                     map_controller.callPreferencesAPI()
+                    //map_controller.callHomeAPI()
                 }
             })
         }

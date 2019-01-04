@@ -21,11 +21,11 @@ struct Preferences: Decodable {
     let lactose: Bool
 }
 
-struct Restauraunts: Decodable {
+struct Restaurants: Decodable {
     let status: String
-    let restauraunt_list: [Restauraunt]
+    let restaurant_list: [Restaurant]
 }
-struct Restauraunt: Decodable {
+struct Restaurant: Decodable {
     let name: String
     let latitude: float_t
     let longitude: float_t
@@ -52,7 +52,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet weak var mapView: GMSMapView!
     var tappedMarker : GMSMarker?
     var customInfoWindow : CustomInfoWindow?
-    var home_data: Restauraunts?
+    var home_data: Restaurants?
+    var location: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.tappedMarker = GMSMarker()
         self.customInfoWindow = CustomInfoWindow().loadView()
         self.customInfoWindow?.body_label.numberOfLines = 0
+        self.callHomeAPI()
         // Do any additional setup after loading the view.
     }
     
@@ -73,16 +75,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.customInfoWindow?.body_label.numberOfLines = 12
         self.customInfoWindow?.title_label.text = marker.title
         var string_to_print = ""
-        for restauraunt in (home_data?.restauraunt_list)! {
-            if restauraunt.name == marker.title {
-                print("testing,", restauraunt.name)
+        for restaurant in (home_data?.restaurant_list)! {
+            if restaurant.name == marker.title {
+                print("testing,", restaurant.name)
                 var gluten_free_items: [String] = []
                 var vegan_items: [String] = []
                 var scd_items: [String] = []
                 var nut_free_items: [String] = []
                 var lactose_free_items: [String] = []
                 
-                for item in (restauraunt.menu_items) {
+                for item in (restaurant.menu_items) {
                     if item.gluten_free {gluten_free_items.append(item.item_name)}
                     if item.vegan {vegan_items.append(item.item_name)}
                     if item.scd {scd_items.append(item.item_name)}
@@ -132,6 +134,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.callHomeAPI()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         mapView.isMyLocationEnabled = true
@@ -158,113 +161,73 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func callPreferencesAPI() -> Preferences {
         var preferences = Preferences(status: "not ok",gluten_free: false, vegan: false, scd: false, nuts: false, lactose: false)
-        guard let url = URL(string: "http://apptesting.getsandbox.com/preferences") else {return preferences}
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let dataResponse = data,
-                error == nil else {
-                    print(error?.localizedDescription ?? "Response Error")
-                    return }
-            do{
-                //here dataResponse received from a network request
-                let jsonResponse = try JSONSerialization.jsonObject(with:
-                    dataResponse, options: [])
-                //print("response")
-                //print(jsonResponse)
-                preferences = try JSONDecoder().decode(Preferences.self, from: dataResponse)
-                UserDefaults.standard.set(preferences.gluten_free, forKey: "gluten_free")
-                UserDefaults.standard.set(preferences.vegan, forKey: "vegan")
-                UserDefaults.standard.set(preferences.nuts, forKey: "nut_free")
-                UserDefaults.standard.set(preferences.lactose, forKey: "lactose_free")
-                UserDefaults.standard.set(preferences.scd, forKey: "scd")
-                //how to return this preferences??
-            } catch let parsingError {
-                print("Error", parsingError)
-            }
+        let Url = String(format: "http://apptesting.getsandbox.com/preferences")
+        guard let serviceUrl = URL(string: Url) else { return preferences }
+        let parameterDictionary = ["token" : FBSDKAccessToken.current()?.tokenString]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
+            return preferences
         }
-        //print(preferences)
-        task.resume()
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print("results", response)
+            }
+            if let data = data {
+                print("data", data)
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print("json!", json)
+                    preferences = try JSONDecoder().decode(Preferences.self, from: data)
+                    UserDefaults.standard.set(preferences.gluten_free, forKey: "gluten_free")
+                    UserDefaults.standard.set(preferences.vegan, forKey: "vegan")
+                    UserDefaults.standard.set(preferences.nuts, forKey: "nut_free")
+                    UserDefaults.standard.set(preferences.lactose, forKey: "lactose_free")
+                    UserDefaults.standard.set(preferences.scd, forKey: "scd")
+                }catch {
+                    print(error)
+                }
+            }
+            }.resume()
         return preferences
     }
     
     func callHomeAPI() {
-        guard let url = URL(string: "http://apptesting.getsandbox.com/home") else {return}
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let dataResponse = data,
-                error == nil else {
-                    print(error?.localizedDescription ?? "Response Error")
-                    return }
-            do{
-                //here dataResponse received from a network request
-                let jsonResponse = try JSONSerialization.jsonObject(with:
-                    dataResponse, options: [])
-                //parsing data --> converting it to Restauraunts object
-                self.home_data = try JSONDecoder().decode(Restauraunts.self, from: dataResponse)
-                //print(home_data)
-                
-                
-                for restauraunt in (self.home_data?.restauraunt_list)! {
-                    print(restauraunt.name)
-                    print(restauraunt.address + "\n")
-                    let marker = GMSMarker()
-                    marker.title = restauraunt.name
-                    let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(restauraunt.latitude), longitude: CLLocationDegrees(restauraunt.longitude))
-                    marker.position = position
-                    print(marker.position)
-                    marker.map = self.mapView
-                    print("title:", marker.title)
-                }
-                
-                let restauraunt_three = self.home_data?.restauraunt_list[2]
-                print(restauraunt_three?.name)
-                print(restauraunt_three?.address)
-                print(restauraunt_three?.website)
-                
-                var gluten_free_items: [String] = []
-                var vegan_items: [String] = []
-                var scd_items: [String] = []
-                var nut_free_items: [String] = []
-                var lactose_free_items: [String] = []
-                
-                for item in (restauraunt_three?.menu_items)! {
-                    if item.gluten_free {gluten_free_items.append(item.item_name)}
-                }
-                for item in (restauraunt_three?.menu_items)! {
-                    if item.vegan {vegan_items.append(item.item_name)}
-                }
-                for item in (restauraunt_three?.menu_items)! {
-                    if item.scd {scd_items.append(item.item_name)}
-                }
-                for item in (restauraunt_three?.menu_items)! {
-                    if item.nuts {nut_free_items.append(item.item_name)}
-                }
-                for item in (restauraunt_three?.menu_items)! {
-                    if item.lactose {lactose_free_items.append(item.item_name)}
-                }
-                if(gluten_free_items.count != 0) {
-                    print("\nGluten Free")
-                    print(gluten_free_items)
-                }
-                if(vegan_items.count != 0) {
-                    print("\nVegan")
-                    print(vegan_items)
-                }
-                if(scd_items.count != 0) {
-                    print("\nSCD")
-                    print(scd_items)
-                }
-                if(nut_free_items.count != 0) {
-                    print("\nNo Nuts")
-                    print(nut_free_items)
-                }
-                if(lactose_free_items.count != 0) {
-                    print("\nLactose Free")
-                    print(lactose_free_items)
-                }
-            } catch let parsingError {
-                print("Error", parsingError)
-            }
+        let Url = String(format: "http://apptesting.getsandbox.com/home3")
+        guard let serviceUrl = URL(string: Url) else { return }
+        let parameterDictionary = ["latitude" : self.location?.coordinate.latitude,
+                                   "longitude" : self.location?.coordinate.longitude,
+                                   "token": FBSDKAccessToken.current()?.tokenString] as [String : Any]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
+            return
         }
-        task.resume()
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print("results", response)
+            }
+            if let data = data {
+                print("data", data)
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print("json!", json)
+                    self.home_data = try JSONDecoder().decode(Restaurants.self, from: data)
+                    print("first name",self.home_data?.restaurant_list[0].name)
+                    self.updateData()
+                }catch {
+                    print(error)
+                }
+            }
+            }.resume()
         let position = CLLocationCoordinate2D(latitude: 37, longitude: -122)
         //let london = GMSMarker(position: position)
         //london.title = "London"
@@ -272,6 +235,70 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         //london.map = mapView
         let marker = GMSMarker()
         marker.position = position
+    }
+    
+    func updateData() {
+        print("self.home_data", self.home_data)
+        print("first name final",self.home_data!.restaurant_list[0].name)
+        for restaurant in (self.home_data?.restaurant_list)! {
+            print(restaurant.name)
+            print(restaurant.address + "\n")
+            let marker = GMSMarker()
+            marker.title = restaurant.name
+            let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))
+            marker.position = position
+            print(marker.position)
+            marker.map = self.mapView
+            print("title:", marker.title)
+        }
+        
+        let restaurant_three = self.home_data?.restaurant_list[2]
+        print(restaurant_three?.name)
+        print(restaurant_three?.address)
+        print(restaurant_three?.website)
+        
+        var gluten_free_items: [String] = []
+        var vegan_items: [String] = []
+        var scd_items: [String] = []
+        var nut_free_items: [String] = []
+        var lactose_free_items: [String] = []
+        
+        for item in (restaurant_three?.menu_items)! {
+            if item.gluten_free {gluten_free_items.append(item.item_name)}
+        }
+        for item in (restaurant_three?.menu_items)! {
+            if item.vegan {vegan_items.append(item.item_name)}
+        }
+        for item in (restaurant_three?.menu_items)! {
+            if item.scd {scd_items.append(item.item_name)}
+        }
+        for item in (restaurant_three?.menu_items)! {
+            if item.nuts {nut_free_items.append(item.item_name)}
+        }
+        for item in (restaurant_three?.menu_items)! {
+            if item.lactose {lactose_free_items.append(item.item_name)}
+        }
+        if(gluten_free_items.count != 0) {
+            print("\nGluten Free")
+            print(gluten_free_items)
+        }
+        if(vegan_items.count != 0) {
+            print("\nVegan")
+            print(vegan_items)
+        }
+        if(scd_items.count != 0) {
+            print("\nSCD")
+            print(scd_items)
+        }
+        if(nut_free_items.count != 0) {
+            print("\nNo Nuts")
+            print(nut_free_items)
+        }
+        if(lactose_free_items.count != 0) {
+            print("\nLactose Free")
+            print(lactose_free_items)
+        }
+
     }
     /*
     // MARK: - Navigation
@@ -301,12 +328,10 @@ extension MapViewController {
     
     // 6
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            return
-        }
+        self.location = locations.first
         
         // 7
-        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: (self.location?.coordinate)!, zoom: 15, bearing: 0, viewingAngle: 0)
         
         // 8
         locationManager.stopUpdatingLocation()
