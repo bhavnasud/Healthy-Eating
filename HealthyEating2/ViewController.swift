@@ -86,13 +86,15 @@ class ViewController: UIViewController {
     }
     
     func postAction(email: String, id: String) {
-        let Url = String(format: "http://apptesting.getsandbox.com/login")
+        print("attempting to login")
+        let Url = String(format: "https://healthyeatingapp.com/api/login")
         guard let serviceUrl = URL(string: Url) else { return }
         let parameterDictionary = ["email" : email, "id" : id, "token": FBSDKAccessToken.current().tokenString]
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "POST"
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else {
+            print("returning")
             return
         }
         request.httpBody = httpBody
@@ -115,11 +117,13 @@ class ViewController: UIViewController {
 
     
     func getFBUserData(tabController: UIViewController) {
+        print("getting fb user data")
         if((FBSDKAccessToken.current()) != nil) {
             print("token", FBSDKAccessToken.current())
             print("expiration_date", FBSDKAccessToken.current().expirationDate)
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, last_name, picture.type(large), email"]).start(completionHandler:{(connection, result, error) -> Void in
                 if (error == nil) {
+                    print("error is nil")
                     let faceDic = result as! [String:AnyObject]
                     print(faceDic)
                     let email = faceDic["email"] as! String

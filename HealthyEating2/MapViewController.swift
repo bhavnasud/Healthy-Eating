@@ -65,7 +65,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.tappedMarker = GMSMarker()
         self.customInfoWindow = CustomInfoWindow().loadView()
         self.customInfoWindow?.body_label.numberOfLines = 0
-        self.callHomeAPI()
         // Do any additional setup after loading the view.
     }
     
@@ -75,52 +74,67 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.customInfoWindow?.body_label.numberOfLines = 12
         self.customInfoWindow?.title_label.text = marker.title
         var string_to_print = ""
+        var latitude: float_t?
+        var longitude: float_t?
         for restaurant in (home_data?.restaurant_list)! {
             if restaurant.name == marker.title {
                 print("testing,", restaurant.name)
-                var gluten_free_items: [String] = []
-                var vegan_items: [String] = []
-                var scd_items: [String] = []
-                var nut_free_items: [String] = []
-                var lactose_free_items: [String] = []
-                
-                for item in (restaurant.menu_items) {
-                    if item.gluten_free {gluten_free_items.append(item.item_name)}
-                    if item.vegan {vegan_items.append(item.item_name)}
-                    if item.scd {scd_items.append(item.item_name)}
-                    if item.nuts {nut_free_items.append(item.item_name)}
-                    if item.lactose {lactose_free_items.append(item.item_name)}
-                }
-                if(gluten_free_items.count != 0 && UserDefaults.standard.bool(forKey: "gluten_free")) {
-                    string_to_print.append("Gluten Free\n")
-                    for item in gluten_free_items {
-                        string_to_print.append(item+"\n")
+                for item in restaurant.menu_items {
+                    if (!item.gluten_free && UserDefaults.standard.bool(forKey: "gluten_free")) ||
+                       (!item.vegan && UserDefaults.standard.bool(forKey: "vegan")) ||
+                       (!item.scd && UserDefaults.standard.bool(forKey: "scd")) ||
+                       (!item.nuts && UserDefaults.standard.bool(forKey: "nut_free")) ||
+                        (!item.lactose && UserDefaults.standard.bool(forKey: "lactose_free")) {
+                    }
+                    else {
+                        string_to_print.append(item.item_name+"\n")
                     }
                 }
-                if(vegan_items.count != 0  && UserDefaults.standard.bool(forKey: "vegan")) {
-                    string_to_print.append("Vegan\n")
-                    for item in vegan_items {
-                        string_to_print.append(item+"\n")
-                    }
-                }
-                if(scd_items.count != 0 && UserDefaults.standard.bool(forKey: "scd")) {
-                    string_to_print.append("SCD\n")
-                    for item in scd_items {
-                        string_to_print.append(item+"\n")
-                    }
-                }
-                if(nut_free_items.count != 0 && UserDefaults.standard.bool(forKey: "nut_free")) {
-                    string_to_print.append("No Nuts\n")
-                    for item in nut_free_items {
-                        string_to_print.append(item+"\n")
-                    }
-                }
-                if(lactose_free_items.count != 0 && UserDefaults.standard.bool(forKey: "lactose_free")) {
-                    string_to_print.append("Lactose Free\n")
-                    for item in lactose_free_items {
-                        string_to_print.append(item+"\n")
-                    }
-                }
+                latitude = restaurant.latitude
+                longitude = restaurant.longitude
+//                var gluten_free_items: [String] = []
+//                var vegan_items: [String] = []
+//                var scd_items: [String] = []
+//                var nut_free_items: [String] = []
+//                var lactose_free_items: [String] = []
+//
+//                for item in (restaurant.menu_items) {
+//                    if item.gluten_free {gluten_free_items.append(item.item_name)}
+//                    if item.vegan {vegan_items.append(item.item_name)}
+//                    if item.scd {scd_items.append(item.item_name)}
+//                    if item.nuts {nut_free_items.append(item.item_name)}
+//                    if item.lactose {lactose_free_items.append(item.item_name)}
+//                }
+//                if(gluten_free_items.count != 0 && UserDefaults.standard.bool(forKey: "gluten_free")) {
+//                    string_to_print.append("Gluten Free\n")
+//                    for item in gluten_free_items {
+//                        string_to_print.append(item+"\n")
+//                    }
+//                }
+//                if(vegan_items.count != 0  && UserDefaults.standard.bool(forKey: "vegan")) {
+//                    string_to_print.append("Vegan\n")
+//                    for item in vegan_items {
+//                        string_to_print.append(item+"\n")
+//                    }
+//                }
+//                if(scd_items.count != 0 && UserDefaults.standard.bool(forKey: "scd")) {
+//                    string_to_print.append("SCD\n")
+//                    for item in scd_items {
+//                        string_to_print.append(item+"\n")
+//                    }
+//                }
+//                if(nut_free_items.count != 0 && UserDefaults.standard.bool(forKey: "nut_free")) {
+//                    string_to_print.append("No Nuts\n")
+//                    for item in nut_free_items {
+//                        string_to_print.append(item+"\n")
+//                    }
+//                }
+//                if(lactose_free_items.count != 0 && UserDefaults.standard.bool(forKey: "lactose_free")) {
+//                    string_to_print.append("Lactose Free\n")
+//                    for item in lactose_free_items {
+//                        string_to_print.append(item+"\n")
+//                    }
+//                }
 
             }
         }
@@ -134,7 +148,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.callHomeAPI()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         mapView.isMyLocationEnabled = true
@@ -161,7 +174,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func callPreferencesAPI() -> Preferences {
         var preferences = Preferences(status: "not ok",gluten_free: false, vegan: false, scd: false, nuts: false, lactose: false)
-        let Url = String(format: "http://apptesting.getsandbox.com/preferences")
+        let Url = String(format: "https://healthyeatingapp.com/api/preferences")
         guard let serviceUrl = URL(string: Url) else { return preferences }
         let parameterDictionary = ["token" : FBSDKAccessToken.current()?.tokenString]
         var request = URLRequest(url: serviceUrl)
@@ -197,8 +210,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func callHomeAPI() {
-        let Url = String(format: "http://apptesting.getsandbox.com/home3")
+        let Url = String(format: "https://healthyeatingapp.com/api/restaurants")
         guard let serviceUrl = URL(string: Url) else { return }
+        print("location here?", self.location?.coordinate.longitude)
         let parameterDictionary = ["latitude" : self.location?.coordinate.latitude,
                                    "longitude" : self.location?.coordinate.longitude,
                                    "token": FBSDKAccessToken.current()?.tokenString] as [String : Any]
@@ -218,10 +232,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if let data = data {
                 print("data", data)
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    var json = try JSONSerialization.jsonObject(with: data, options: [])
+                    let jsonString = String(data: data, encoding: .utf8)
+                    json = jsonString!.data(using: .utf8)
                     print("json!", json)
                     self.home_data = try JSONDecoder().decode(Restaurants.self, from: data)
-                    print("first name",self.home_data?.restaurant_list[0].name)
+                    //print("first name",self.home_data?.restaurant_list[0].name)
                     self.updateData()
                 }catch {
                     print(error)
@@ -239,7 +255,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func updateData() {
         print("self.home_data", self.home_data)
-        print("first name final",self.home_data!.restaurant_list[0].name)
+        //print("first name final",self.home_data!.restaurant_list[0].name)
         for restaurant in (self.home_data?.restaurant_list)! {
             print(restaurant.name)
             print(restaurant.address + "\n")
@@ -252,52 +268,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             print("title:", marker.title)
         }
         
-        let restaurant_three = self.home_data?.restaurant_list[2]
-        print(restaurant_three?.name)
-        print(restaurant_three?.address)
-        print(restaurant_three?.website)
-        
-        var gluten_free_items: [String] = []
-        var vegan_items: [String] = []
-        var scd_items: [String] = []
-        var nut_free_items: [String] = []
-        var lactose_free_items: [String] = []
-        
-        for item in (restaurant_three?.menu_items)! {
-            if item.gluten_free {gluten_free_items.append(item.item_name)}
-        }
-        for item in (restaurant_three?.menu_items)! {
-            if item.vegan {vegan_items.append(item.item_name)}
-        }
-        for item in (restaurant_three?.menu_items)! {
-            if item.scd {scd_items.append(item.item_name)}
-        }
-        for item in (restaurant_three?.menu_items)! {
-            if item.nuts {nut_free_items.append(item.item_name)}
-        }
-        for item in (restaurant_three?.menu_items)! {
-            if item.lactose {lactose_free_items.append(item.item_name)}
-        }
-        if(gluten_free_items.count != 0) {
-            print("\nGluten Free")
-            print(gluten_free_items)
-        }
-        if(vegan_items.count != 0) {
-            print("\nVegan")
-            print(vegan_items)
-        }
-        if(scd_items.count != 0) {
-            print("\nSCD")
-            print(scd_items)
-        }
-        if(nut_free_items.count != 0) {
-            print("\nNo Nuts")
-            print(nut_free_items)
-        }
-        if(lactose_free_items.count != 0) {
-            print("\nLactose Free")
-            print(lactose_free_items)
-        }
+
 
     }
     /*
@@ -323,18 +294,19 @@ extension MapViewController {
         }
         // 4
         locationManager.startUpdatingLocation()
-        
     }
     
     // 6
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.location = locations.first
+        print("location!", self.location?.coordinate.longitude)
         
         // 7
         mapView.camera = GMSCameraPosition(target: (self.location?.coordinate)!, zoom: 15, bearing: 0, viewingAngle: 0)
         
         // 8
         locationManager.stopUpdatingLocation()
+        self.callHomeAPI()
     }
 }
 

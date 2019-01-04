@@ -60,13 +60,13 @@ class PreferenceViewController: UIViewController {
     }
 
     func postAction() {
-        let Url = String(format: "http://apptesting.getsandbox.com/updatepreference")
+        let Url = String(format: "https://healthyeatingapp.com/api/update")
         guard let serviceUrl = URL(string: Url) else { return }
         let parameterDictionary = ["gluten_free" : UserDefaults.standard.bool(forKey: "gluten_free"),
                                    "vegan" : UserDefaults.standard.bool(forKey: "vegan"),
                                    "scd": UserDefaults.standard.bool(forKey: "scd"),
-                                   "nut_free": UserDefaults.standard.bool(forKey: "nut_free"),
-                                   "lactose_free": UserDefaults.standard.bool(forKey: "lactose_free"),
+                                   "nuts": UserDefaults.standard.bool(forKey: "nut_free"),
+                                   "lactose": UserDefaults.standard.bool(forKey: "lactose_free"),
                                    "token": FBSDKAccessToken.current()?.tokenString] as [String : Any]
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "POST"

@@ -19,6 +19,8 @@ class CustomInfoWindow: UIView {
         // Drawing code
     }
     */
+    @IBAction func direction_tapped(_ sender: Any) {
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
