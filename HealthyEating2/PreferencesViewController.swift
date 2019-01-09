@@ -21,9 +21,7 @@ class PreferenceViewController: UIViewController {
     var scd_box: CheckBox = CheckBox()
     var nuts_box: CheckBox = CheckBox()
     var lactose_box: CheckBox = CheckBox()
-    
-    @IBAction func update_preferences(_ sender: Any) {
-        print("trying?")
+    @IBAction func gluten_free_clicked(_ sender: Any) {
         if (gluten_free_box.isChecked) {
             UserDefaults.standard.set(true, forKey: "gluten_free")
             print("set to true")
@@ -31,36 +29,46 @@ class PreferenceViewController: UIViewController {
         else {
             UserDefaults.standard.set(false, forKey: "gluten_free")
         }
+    }
+    
+    @IBAction func vegan_clicked(_ sender: Any) {
         if (vegan_box.isChecked) {
             UserDefaults.standard.set(true, forKey: "vegan")
         }
         else {
             UserDefaults.standard.set(false, forKey: "vegan")
         }
+    }
+    
+    @IBAction func scd_clicked(_ sender: Any) {
         if (scd_box.isChecked) {
             UserDefaults.standard.set(true, forKey: "scd")
         }
         else {
             UserDefaults.standard.set(false, forKey: "scd")
         }
+    }
+    @IBAction func nut_free_clicked(_ sender: Any) {
         if (nuts_box.isChecked) {
             UserDefaults.standard.set(true, forKey: "nut_free")
         }
         else {
             UserDefaults.standard.set(false, forKey: "nut_free")
         }
+    }
+    
+    @IBAction func lactose_free_clicked(_ sender: Any) {
+        print("i'm clicked!")
         if (lactose_box.isChecked) {
-            UserDefaults.standard.set(true, forKey: "lactose_free")
-        }
-        else {
             UserDefaults.standard.set(false, forKey: "lactose_free")
         }
-        //WRITE THE UPDATED RESULTS TO THE DATABASE!!!
-        postAction()
+        else {
+            UserDefaults.standard.set(true, forKey: "lactose_free")
+        }
     }
 
     func postAction() {
-        let Url = String(format: "https://healthyeatingapp.com/api/update")
+        let Url = String(format: "http://apptesting.getsandbox.com/updatepreference")
         guard let serviceUrl = URL(string: Url) else { return }
         let parameterDictionary = ["gluten_free" : UserDefaults.standard.bool(forKey: "gluten_free"),
                                    "vegan" : UserDefaults.standard.bool(forKey: "vegan"),
@@ -137,6 +145,7 @@ class PreferenceViewController: UIViewController {
     }
         
     @IBAction func logout_tapped(_ sender: Any) {
+        postAction()
         let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

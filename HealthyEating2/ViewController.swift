@@ -75,6 +75,8 @@ class ViewController: UIViewController {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let tab_controller = storyboard.instantiateViewController(withIdentifier: "TabController")
                         self.getFBUserData(tabController: tab_controller)
+                        let mapController = tab_controller.children[0] as! MapViewController
+                        mapController.callPreferencesAPI()
                         self.present(tab_controller, animated: true, completion: nil)
                         
                    }
@@ -87,7 +89,7 @@ class ViewController: UIViewController {
     
     func postAction(email: String, id: String) {
         print("attempting to login")
-        let Url = String(format: "https://healthyeatingapp.com/api/login")
+        let Url = String(format: "http://apptesting.getsandbox.com/login")
         guard let serviceUrl = URL(string: Url) else { return }
         let parameterDictionary = ["email" : email, "id" : id, "token": FBSDKAccessToken.current().tokenString]
         var request = URLRequest(url: serviceUrl)
@@ -134,9 +136,9 @@ class ViewController: UIViewController {
                     self.postAction(email: email, id: id)
                     //set the user defaults to what it says in the database
                     //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let map_controller = tabController.children[0] as! MapViewController
+                    //let map_controller = tabController.children[0] as! MapViewController
                     //set the preferences in the app to the preferences recieved from the database
-                    map_controller.callPreferencesAPI()
+                    //map_controller.callPreferencesAPI()
                     //map_controller.callHomeAPI()
                 }
             })

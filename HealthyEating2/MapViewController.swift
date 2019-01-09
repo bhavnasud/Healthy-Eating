@@ -54,6 +54,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var customInfoWindow : CustomInfoWindow?
     var home_data: Restaurants?
     var location: CLLocation?
+    var home_called = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.tappedMarker = GMSMarker()
         self.customInfoWindow = CustomInfoWindow().loadView()
         self.customInfoWindow?.body_label.numberOfLines = 0
+        //self.callHomeAPI()
+        //self.updateData()
         // Do any additional setup after loading the view.
     }
     
@@ -153,28 +156,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         locationManager.startUpdatingLocation()
+        if self.home_data != nil {
+            //self.updateData()
+        }
+        //else {
+            //self.callHomeAPI()
+            //viewWillAppear(true)
+        //}
         // Do any additional setup after loading the view.
     }
     
     @IBAction func logout_tapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let preference_controller = storyboard.instantiateViewController(withIdentifier: "PreferencesViewController") as! PreferenceViewController
+        preference_controller.postAction()
         let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
-        self.present(controller, animated: true, completion: nil)
-    }
-
-    @IBAction func test_button(_ sender: Any) {
-        let result = callPreferencesAPI()
-        print("hi")
-        print(result)
-        
-        callHomeAPI()
+        let view_controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        self.present(view_controller, animated: true, completion: nil)
     }
     
     func callPreferencesAPI() -> Preferences {
+        print("preference called")
         var preferences = Preferences(status: "not ok",gluten_free: false, vegan: false, scd: false, nuts: false, lactose: false)
-        let Url = String(format: "https://healthyeatingapp.com/api/preferences")
+        let Url = String(format: "http://apptesting.getsandbox.com/preferences")
         guard let serviceUrl = URL(string: Url) else { return preferences }
         let parameterDictionary = ["token" : FBSDKAccessToken.current()?.tokenString]
         var request = URLRequest(url: serviceUrl)
@@ -206,11 +211,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 }
             }
             }.resume()
+        print("preferences", preferences)
         return preferences
     }
     
     func callHomeAPI() {
-        let Url = String(format: "https://healthyeatingapp.com/api/restaurants")
+        let Url = String(format: "http://apptesting.getsandbox.com/home3")
         guard let serviceUrl = URL(string: Url) else { return }
         print("location here?", self.location?.coordinate.longitude)
         let parameterDictionary = ["latitude" : self.location?.coordinate.latitude,
@@ -223,7 +229,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         }
         request.httpBody = httpBody
-        
+
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
             if let response = response {
@@ -232,36 +238,48 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if let data = data {
                 print("data", data)
                 do {
-                    var json = try JSONSerialization.jsonObject(with: data, options: [])
-                    let jsonString = String(data: data, encoding: .utf8)
-                    json = jsonString!.data(using: .utf8)
-                    print("json!", json)
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                   print("json!", json)
                     self.home_data = try JSONDecoder().decode(Restaurants.self, from: data)
-                    //print("first name",self.home_data?.restaurant_list[0].name)
+                    print("self.home_data", self.home_data)
+                    print("first name",self.home_data?.restaurant_list[0].name)
                     self.updateData()
                 }catch {
                     print(error)
                 }
+                //self.updateData()
             }
+            //self.updateData()
             }.resume()
-        let position = CLLocationCoordinate2D(latitude: 37, longitude: -122)
+        //self.updateData()
+        print("done executing")
+        
+        //self.updateData()
+        //let position = CLLocationCoordinate2D(latitude: 37, longitude: -122)
         //let london = GMSMarker(position: position)
         //london.title = "London"
         //london.snippet = "Res. C\ntesting address\nhttps://google.com\nGluten Free\nsalad, apple, bread\nVegan\nsalad, apple, bread\nSCD\nsalad, apple, bread\nNo Nuts\nsalad, apple, bread"
         //london.map = mapView
-        let marker = GMSMarker()
-        marker.position = position
+        //let marker = GMSMarker()
+        //marker.position = position
     }
     
+    
     func updateData() {
+        //let marker = GMSMarker()
+        print("started to execute")
         print("self.home_data", self.home_data)
-        //print("first name final",self.home_data!.restaurant_list[0].name)
+        print("first name final",self.home_data!.restaurant_list[0].name)
+        //var marker2 = GMSMarker()
         for restaurant in (self.home_data?.restaurant_list)! {
+        //let restaurant = self.home_data!.restaurant_list[0]
+            //let marker = GMSMarker()
             print(restaurant.name)
             print(restaurant.address + "\n")
-            let marker = GMSMarker()
-            marker.title = restaurant.name
             let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))
+            let marker = GMSMarker(position: position)
+            marker.title = restaurant.name
+           
             marker.position = position
             print(marker.position)
             marker.map = self.mapView
@@ -306,7 +324,12 @@ extension MapViewController {
         
         // 8
         locationManager.stopUpdatingLocation()
-        self.callHomeAPI()
+        if (!home_called) {
+            self.callHomeAPI()
+            //self.viewWillAppear(true)
+            home_called = true
+            //self.updateData()
+        }
     }
 }
 
