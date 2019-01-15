@@ -21,44 +21,60 @@ class PreferenceViewController: UIViewController {
     var scd_box: CheckBox = CheckBox()
     var nuts_box: CheckBox = CheckBox()
     var lactose_box: CheckBox = CheckBox()
+    let board = UIStoryboard(name: "Main", bundle: nil)
+    
+    @IBAction func button_clicked(_ sender: Any) {
+        print("gluten_free", UserDefaults.standard.bool(forKey: "gluten_free"))
+        print("vegan", UserDefaults.standard.bool(forKey: "vegan"))
+        print("scd", UserDefaults.standard.bool(forKey: "scd"))
+        print("nut_free", UserDefaults.standard.bool(forKey: "nut_free"))
+        print("lactose_free", UserDefaults.standard.bool(forKey: "lactose_free"))
+        print(FBSDKAccessToken.current()?.tokenString)
+    }
+    
+    
     @IBAction func gluten_free_clicked(_ sender: Any) {
+        print("gluten_free_clicked")
         if (gluten_free_box.isChecked) {
-            UserDefaults.standard.set(true, forKey: "gluten_free")
+            UserDefaults.standard.set(false, forKey: "gluten_free")
             print("set to true")
         }
         else {
-            UserDefaults.standard.set(false, forKey: "gluten_free")
+            UserDefaults.standard.set(true, forKey: "gluten_free")
         }
     }
     
     @IBAction func vegan_clicked(_ sender: Any) {
+        print("vegan_clicked")
         if (vegan_box.isChecked) {
-            UserDefaults.standard.set(true, forKey: "vegan")
+            UserDefaults.standard.set(false, forKey: "vegan")
         }
         else {
-            UserDefaults.standard.set(false, forKey: "vegan")
+            UserDefaults.standard.set(true, forKey: "vegan")
         }
     }
     
     @IBAction func scd_clicked(_ sender: Any) {
+        print("scd_clicked")
         if (scd_box.isChecked) {
-            UserDefaults.standard.set(true, forKey: "scd")
+            UserDefaults.standard.set(false, forKey: "scd")
         }
         else {
-            UserDefaults.standard.set(false, forKey: "scd")
+            UserDefaults.standard.set(true, forKey: "scd")
         }
     }
     @IBAction func nut_free_clicked(_ sender: Any) {
+        print("nut_free_clicked")
         if (nuts_box.isChecked) {
-            UserDefaults.standard.set(true, forKey: "nut_free")
+            UserDefaults.standard.set(false, forKey: "nut_free")
         }
         else {
-            UserDefaults.standard.set(false, forKey: "nut_free")
+            UserDefaults.standard.set(true, forKey: "nut_free")
         }
     }
     
     @IBAction func lactose_free_clicked(_ sender: Any) {
-        print("i'm clicked!")
+        print("lactose_free clicked!")
         if (lactose_box.isChecked) {
             UserDefaults.standard.set(false, forKey: "lactose_free")
         }
@@ -68,7 +84,7 @@ class PreferenceViewController: UIViewController {
     }
 
     func postAction() {
-        let Url = String(format: "http://apptesting.getsandbox.com/updatepreference")
+        let Url = String(format: "https://healthyeatingapp.com/api/update")
         guard let serviceUrl = URL(string: Url) else { return }
         let parameterDictionary = ["gluten_free" : UserDefaults.standard.bool(forKey: "gluten_free"),
                                    "vegan" : UserDefaults.standard.bool(forKey: "vegan"),
@@ -146,11 +162,15 @@ class PreferenceViewController: UIViewController {
         
     @IBAction func logout_tapped(_ sender: Any) {
         postAction()
-        let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.logOut()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        //let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
+        ViewController.shared.fbLoginManager.logOut()
+        let controller = board.instantiateViewController(withIdentifier: "ViewController")
         self.present(controller, animated: true, completion: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("called")
+        self.postAction()
     }
 
     

@@ -38,8 +38,31 @@ class CheckBox: UIButton {
     }
 }
 
-class ViewController: UIViewController {
 
+
+
+
+class ViewController: UIViewController {
+    
+    static let shared = ViewController()
+    public static var _fbLoginManager: FBSDKLoginManager?
+    var got_data = false
+    
+    var fbLoginManager: FBSDKLoginManager {
+        get {
+            if ViewController._fbLoginManager == nil {
+                ViewController._fbLoginManager = FBSDKLoginManager()
+            }
+            return ViewController._fbLoginManager!
+        }
+    }
+    
+    @IBAction func service_clicked(_ sender: Any) {
+        if let url = NSURL(string:"https://www.freeprivacypolicy.com/privacy/view/750f0f499548a5caba92693bb226b3e5") {
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -64,9 +87,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func login_tapped(_ sender: Any) {
-        let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
+        //let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
         print("hello?")
-        fbLoginManager.logIn(withReadPermissions: ["email"], from: self){(result, error) in
+        ViewController.shared.fbLoginManager.logIn(withReadPermissions: ["email"], from: self){(result, error) in
             if(error == nil) {
                 print("here!!")
                let fbLoginResult: FBSDKLoginManagerLoginResult = result!
@@ -75,8 +98,7 @@ class ViewController: UIViewController {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let tab_controller = storyboard.instantiateViewController(withIdentifier: "TabController")
                         self.getFBUserData(tabController: tab_controller)
-                        let mapController = tab_controller.children[0] as! MapViewController
-                        mapController.callPreferencesAPI()
+                        //self.getPreferences(tabController: tab_controller)
                         self.present(tab_controller, animated: true, completion: nil)
                         
                    }
@@ -87,9 +109,19 @@ class ViewController: UIViewController {
         }
     }
     
+//    func getPreferences(tabController: UIViewController) {
+//        if(self.got_data) {
+//            let mapController = tabController.children[0] as! MapViewController
+//            mapController.callPreferencesAPI()
+//        }
+//        else {
+//            getPreferences(tabController: tabController)
+//        }
+//    }
+    
     func postAction(email: String, id: String) {
         print("attempting to login")
-        let Url = String(format: "http://apptesting.getsandbox.com/login")
+        let Url = String(format: "https://healthyeatingapp.com/api/login")
         guard let serviceUrl = URL(string: Url) else { return }
         let parameterDictionary = ["email" : email, "id" : id, "token": FBSDKAccessToken.current().tokenString]
         var request = URLRequest(url: serviceUrl)
@@ -115,6 +147,10 @@ class ViewController: UIViewController {
                 }
             }
             }.resume()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tab_controller = storyboard.instantiateViewController(withIdentifier: "TabController")
+        let mapController = tab_controller.children[0] as! MapViewController
+        mapController.callPreferencesAPI()
     }
 
     
@@ -134,6 +170,7 @@ class ViewController: UIViewController {
                     print(id)
                     //call api to add them to the database
                     self.postAction(email: email, id: id)
+                    //self.got_data = true
                     //set the user defaults to what it says in the database
                     //let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     //let map_controller = tabController.children[0] as! MapViewController

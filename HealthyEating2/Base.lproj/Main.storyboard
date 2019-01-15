@@ -18,39 +18,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HealthyEats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkN-nT-fkA">
-                                <rect key="frame" x="141" y="145" width="92" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HealthyEating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkN-nT-fkA">
+                                <rect key="frame" x="106" y="120" width="163.5" height="32.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Restauraunts With Healthy Eating Options Near You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ud-zG-mWd">
-                                <rect key="frame" x="21" y="175" width="333" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yaa-ui-o3J">
-                                <rect key="frame" x="115" y="317" width="144" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login With Facebook">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yaa-ui-o3J">
+                                <rect key="frame" x="87.5" y="267" width="200" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="PdX-o8-C7L"/>
+                                    <constraint firstAttribute="height" constant="40" id="Wya-xH-z7f"/>
+                                </constraints>
+                                <state key="normal" title="Login With Facebook" image="facebook_login">
                                     <color key="titleShadowColor" red="0.0071706609960000001" green="0.44234857490000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="login_tapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bjZ-di-1ey"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By logging in, I agree with the terms of service." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23i-yx-pbz">
-                                <rect key="frame" x="64" y="357" width="247" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Ow4-Hj-q8E">
+                                <rect key="frame" x="60.5" y="322" width="254.5" height="27"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By logging in, I agree to the" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8E-ta-p4i">
+                                        <rect key="frame" x="0.0" y="0.0" width="155.5" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZx-iE-BDy">
+                                        <rect key="frame" x="158.5" y="0.0" width="96" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="terms of service.">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="service_clicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a4q-Fr-S3p"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restauraunts With Healthy Eating Options Near You" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ud-zG-mWd">
+                                <rect key="frame" x="21" y="176" width="333" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6ud-zG-mWd" firstAttribute="top" secondItem="JkN-nT-fkA" secondAttribute="bottom" constant="23.5" id="BeL-nn-rzj"/>
+                            <constraint firstItem="6ud-zG-mWd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GI0-s1-1BY"/>
+                            <constraint firstItem="Ow4-Hj-q8E" firstAttribute="top" secondItem="Yaa-ui-o3J" secondAttribute="bottom" constant="15" id="Tn1-Rh-5jP"/>
+                            <constraint firstItem="JkN-nT-fkA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="W3t-Qg-PtM"/>
+                            <constraint firstItem="Yaa-ui-o3J" firstAttribute="top" secondItem="6ud-zG-mWd" secondAttribute="bottom" constant="74" id="fQs-eS-LmU"/>
+                            <constraint firstItem="Ow4-Hj-q8E" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hib-Mw-nEL"/>
+                            <constraint firstItem="JkN-nT-fkA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uti-IZ-cNN"/>
+                            <constraint firstItem="Yaa-ui-o3J" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="z5k-cu-AAc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -89,27 +114,21 @@
                             <constraint firstAttribute="trailing" secondItem="2Qp-6a-3Ys" secondAttribute="trailing" id="JQq-sZ-UKG"/>
                             <constraint firstItem="2Qp-6a-3Ys" firstAttribute="leading" secondItem="S6S-cL-EQs" secondAttribute="leading" id="O8A-hj-oUk"/>
                             <constraint firstAttribute="bottomMargin" secondItem="2Qp-6a-3Ys" secondAttribute="bottom" constant="-1" id="aRF-ma-eHg"/>
-                            <constraint firstItem="2Qp-6a-3Ys" firstAttribute="top" secondItem="DMS-Os-E1h" secondAttribute="top" constant="64" id="qiy-1k-coV"/>
+                            <constraint firstItem="S6S-cL-EQs" firstAttribute="top" secondItem="O9W-ym-dZ3" secondAttribute="top" id="kAO-hl-AhQ"/>
                             <constraint firstItem="2Qp-6a-3Ys" firstAttribute="leading" secondItem="DMS-Os-E1h" secondAttribute="leading" id="uEG-Z7-LTc"/>
                             <constraint firstItem="2Qp-6a-3Ys" firstAttribute="trailing" secondItem="S6S-cL-EQs" secondAttribute="trailing" id="zVQ-Ao-3QZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O9W-ym-dZ3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" image="map_icon" id="HuU-8o-wun"/>
-                    <navigationItem key="navigationItem" title="Home" id="LqI-7c-PpW">
-                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="NJ7-um-fUA">
-                            <connections>
-                                <action selector="logout_tapped:" destination="1tq-2R-y7R" id="Ruq-aV-dOd"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <tabBarItem key="tabBarItem" title="Home" image="map_icon" selectedImage="map_icon" id="HuU-8o-wun"/>
+                    <navigationItem key="navigationItem" title="Home" id="to1-Aq-fJ0"/>
                     <connections>
                         <outlet property="mapView" destination="2Qp-6a-3Ys" id="mmO-sT-08y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDz-YN-vP1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2912.8000000000002" y="98.50074962518741"/>
+            <point key="canvasLocation" x="2100" y="77.599999999999994"/>
         </scene>
         <!--Preferences-->
         <scene sceneID="sQo-XV-5m1">
@@ -119,7 +138,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVg-Hu-CcC">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gVg-Hu-CcC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Preferences" id="M5r-Df-OiK">
@@ -131,127 +150,128 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbk-zT-QrT" userLabel="gluten_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="163" width="30" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="wY7-bI-PU2">
+                                <rect key="frame" x="77" y="208.5" width="30" height="250"/>
+                                <subviews>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbk-zT-QrT" userLabel="gluten_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="swl-PK-mTk"/>
+                                            <constraint firstAttribute="height" constant="30" id="y2y-32-22Y"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_check_box_outline_blank">
+                                            <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="gluten_free_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="FZy-2m-2cG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9e-xA-qaN" userLabel="vegan" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="6qT-Zt-Qfm"/>
+                                            <constraint firstAttribute="height" constant="30" id="v3r-XI-8vx"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_check_box_outline_blank">
+                                            <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="vegan_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="i7l-Jl-52e"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CyO-Ug-IAx" userLabel="scd" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="110" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Emy-Od-mK2"/>
+                                            <constraint firstAttribute="height" constant="30" id="VJO-4X-q9d"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_check_box_outline_blank">
+                                            <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scd_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="y6z-wx-THX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gro-87-jg1" userLabel="nut_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="165" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="PZp-UP-LPR"/>
+                                            <constraint firstAttribute="height" constant="30" id="y8W-3g-dsr"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_check_box_outline_blank">
+                                            <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="nut_free_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="ehN-MD-XKI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEf-Nl-7zw" userLabel="lactose_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="220" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="UNu-bU-HlO"/>
+                                            <constraint firstAttribute="width" constant="30" id="jcm-IP-fmQ"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_check_box_outline_blank">
+                                            <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="lactose_free_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="dYZ-0h-Q46"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="swl-PK-mTk"/>
-                                    <constraint firstAttribute="height" constant="30" id="y2y-32-22Y"/>
+                                    <constraint firstItem="r9e-xA-qaN" firstAttribute="leading" secondItem="wY7-bI-PU2" secondAttribute="leading" multiplier="4:3" id="DB1-zN-oBR"/>
                                 </constraints>
-                                <state key="normal" image="ic_check_box_outline_blank">
-                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="gluten_free_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="FZy-2m-2cG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9e-xA-qaN" userLabel="vegan" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="213" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="6qT-Zt-Qfm"/>
-                                    <constraint firstAttribute="height" constant="30" id="v3r-XI-8vx"/>
-                                </constraints>
-                                <state key="normal" image="ic_check_box_outline_blank">
-                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="vegan_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="i7l-Jl-52e"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="3" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CyO-Ug-IAx" userLabel="scd" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="263" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="Emy-Od-mK2"/>
-                                    <constraint firstAttribute="height" constant="30" id="VJO-4X-q9d"/>
-                                </constraints>
-                                <state key="normal" image="ic_check_box_outline_blank">
-                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="scd_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="y6z-wx-THX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="4" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gro-87-jg1" userLabel="nut_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="313" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="PZp-UP-LPR"/>
-                                    <constraint firstAttribute="height" constant="30" id="y8W-3g-dsr"/>
-                                </constraints>
-                                <state key="normal" image="ic_check_box_outline_blank">
-                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="nut_free_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="ehN-MD-XKI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="5" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEf-Nl-7zw" userLabel="lactose_free" customClass="CheckBox" customModule="HealthyEating2" customModuleProvider="target">
-                                <rect key="frame" x="89" y="363" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="UNu-bU-HlO"/>
-                                    <constraint firstAttribute="width" constant="30" id="jcm-IP-fmQ"/>
-                                </constraints>
-                                <state key="normal" image="ic_check_box_outline_blank">
-                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="lactose_free_clicked:" destination="enY-5j-GEw" eventType="touchUpInside" id="dYZ-0h-Q46"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u97-qo-XaV">
-                                <rect key="frame" x="203" y="172" width="0.0" height="0.0"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Vegan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCb-z8-ZJ4">
-                                <rect key="frame" x="127" y="218" width="49" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SCD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6he-CW-2oU">
-                                <rect key="frame" x="127" y="268" width="35" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nut-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQW-du-pO9">
-                                <rect key="frame" x="127" y="318" width="65" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lactose-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbA-bh-uhf">
-                                <rect key="frame" x="127" y="368" width="99" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gluten-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="US2-B7-3wW">
-                                <rect key="frame" x="127" y="168" width="88" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="sXz-Ag-D7p">
+                                <rect key="frame" x="143" y="210" width="138.5" height="247.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gluten-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="US2-B7-3wW">
+                                        <rect key="frame" x="0.0" y="0.0" width="124" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vegan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCb-z8-ZJ4">
+                                        <rect key="frame" x="0.0" y="54" width="68.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6he-CW-2oU">
+                                        <rect key="frame" x="0.0" y="108" width="52" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nut-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQW-du-pO9">
+                                        <rect key="frame" x="0.0" y="163.5" width="92.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lactose-free" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UbA-bh-uhf">
+                                        <rect key="frame" x="0.0" y="217.5" width="138.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bEf-Nl-7zw" firstAttribute="top" secondItem="Gro-87-jg1" secondAttribute="bottom" constant="20" id="6kz-qt-dMC"/>
-                            <constraint firstItem="bEf-Nl-7zw" firstAttribute="top" secondItem="Gro-87-jg1" secondAttribute="bottom" constant="20" id="G3h-Qi-AVd"/>
-                            <constraint firstItem="Kbk-zT-QrT" firstAttribute="top" secondItem="gVg-Hu-CcC" secondAttribute="bottom" constant="99" id="MPy-3c-J5f"/>
-                            <constraint firstItem="Gro-87-jg1" firstAttribute="top" secondItem="CyO-Ug-IAx" secondAttribute="bottom" constant="20" id="RfM-TG-RQX"/>
-                            <constraint firstItem="Gro-87-jg1" firstAttribute="top" secondItem="CyO-Ug-IAx" secondAttribute="bottom" constant="20" id="Sgg-3w-jiq"/>
-                            <constraint firstItem="r9e-xA-qaN" firstAttribute="top" secondItem="Kbk-zT-QrT" secondAttribute="bottom" constant="20" id="Vle-l2-R5m"/>
-                            <constraint firstItem="CyO-Ug-IAx" firstAttribute="top" secondItem="r9e-xA-qaN" secondAttribute="bottom" constant="20" id="nQC-8u-5AP"/>
-                            <constraint firstItem="CyO-Ug-IAx" firstAttribute="top" secondItem="r9e-xA-qaN" secondAttribute="bottom" constant="20" id="pRo-QS-od2"/>
+                            <constraint firstItem="gVg-Hu-CcC" firstAttribute="trailing" secondItem="jcI-U1-Yy9" secondAttribute="trailing" id="6Mx-na-WkN"/>
+                            <constraint firstItem="gVg-Hu-CcC" firstAttribute="top" secondItem="jcI-U1-Yy9" secondAttribute="top" id="JhU-U3-AKz"/>
+                            <constraint firstItem="gVg-Hu-CcC" firstAttribute="leading" secondItem="jcI-U1-Yy9" secondAttribute="leading" id="Ptj-SS-IiY"/>
+                            <constraint firstItem="sXz-Ag-D7p" firstAttribute="centerY" secondItem="ss4-Zf-XDx" secondAttribute="centerY" id="ReR-fp-VwW"/>
+                            <constraint firstItem="jcI-U1-Yy9" firstAttribute="trailing" secondItem="sXz-Ag-D7p" secondAttribute="trailing" multiplier="4:3" id="jnU-1n-Fpl"/>
+                            <constraint firstItem="sXz-Ag-D7p" firstAttribute="leading" secondItem="wY7-bI-PU2" secondAttribute="trailing" multiplier="4:3" id="kr9-Zj-oFL"/>
+                            <constraint firstItem="wY7-bI-PU2" firstAttribute="centerY" secondItem="ss4-Zf-XDx" secondAttribute="centerY" id="zov-Nf-UCH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jcI-U1-Yy9"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Preferences" image="settings_icon" id="udm-Ys-blb"/>
                     <navigationItem key="navigationItem" title="Preferences" id="980-DS-OSW">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="lIJ-E0-IS3">
                             <connections>
@@ -269,42 +289,26 @@
             <objects>
                 <tabBarController storyboardIdentifier="TabController" automaticallyAdjustsScrollViewInsets="NO" id="clC-UT-xIR" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="joK-3Z-bbP"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gzX-If-F9m">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="1tq-2R-y7R" kind="relationship" relationship="viewControllers" id="wLe-Uw-T8u"/>
-                        <segue destination="Zpw-bd-VsD" kind="relationship" relationship="viewControllers" id="frR-92-M7g"/>
+                        <segue destination="1tq-2R-y7R" kind="relationship" relationship="viewControllers" id="n8C-LF-w9L"/>
+                        <segue destination="enY-5j-GEw" kind="relationship" relationship="viewControllers" id="R9J-Sj-QQD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZbC-Ra-eRe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1034.4000000000001" y="98.50074962518741"/>
         </scene>
-        <!--Preferences-->
-        <scene sceneID="6Hr-8Q-sf7">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zpw-bd-VsD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Preferences" id="xE0-Nq-9cm"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bgX-MP-cVT">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="enY-5j-GEw" kind="relationship" relationship="rootViewController" id="Gul-c9-M7I"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6wc-xk-zK1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1160.8" y="994.45277361319347"/>
-        </scene>
     </scenes>
     <resources>
+        <image name="facebook_login" width="708" height="145"/>
         <image name="ic_check_box_outline_blank" width="512" height="512"/>
-        <image name="map_icon" width="512" height="512"/>
+        <image name="map_icon" width="25" height="25"/>
+        <image name="settings_icon" width="25" height="25"/>
     </resources>
 </document>

@@ -51,11 +51,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     var tappedMarker : GMSMarker?
-    var customInfoWindow : CustomInfoWindow?
+    //var customInfoWindow : CustomInfoWindow?
     var home_data: Restaurants?
     var location: CLLocation?
     var home_called = false
-    
+    let board = UIStoryboard(name: "Main", bundle: nil)
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
@@ -64,8 +65,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         self.tappedMarker = GMSMarker()
-        self.customInfoWindow = CustomInfoWindow().loadView()
-        self.customInfoWindow?.body_label.numberOfLines = 0
+        //self.customInfoWindow = CustomInfoWindow().loadView()
+        //self.customInfoWindow?.body_label.numberOfLines = 0
         //self.callHomeAPI()
         //self.updateData()
         // Do any additional setup after loading the view.
@@ -73,9 +74,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         print("here is title", marker.title)
-        self.customInfoWindow = CustomInfoWindow().loadView()
-        self.customInfoWindow?.body_label.numberOfLines = 12
-        self.customInfoWindow?.title_label.text = marker.title
+        //self.customInfoWindow = CustomInfoWindow().loadView()
+        //self.customInfoWindow?.body_label.numberOfLines = 12
+        //self.customInfoWindow?.title_label.text = marker.title
         var string_to_print = ""
         var latitude: float_t?
         var longitude: float_t?
@@ -141,14 +142,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
             }
         }
-        self.customInfoWindow?.body_label.text = string_to_print
+        //self.customInfoWindow?.body_label.text = string_to_print
         marker.map = mapView
         return false
     }
     
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        return self.customInfoWindow
-    }
+    //func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        //return self.customInfoWindow
+    //}
     
     override func viewWillAppear(_ animated: Bool) {
         locationManager.delegate = self
@@ -167,19 +168,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     @IBAction func logout_tapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let preference_controller = storyboard.instantiateViewController(withIdentifier: "PreferencesViewController") as! PreferenceViewController
-        preference_controller.postAction()
-        let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.logOut()
-        let view_controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        //let fbLoginManager:FBSDKLoginManager = FBSDKLoginManager(
+        let view_controller = board.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        ViewController.shared.fbLoginManager.logOut()
         self.present(view_controller, animated: true, completion: nil)
     }
     
     func callPreferencesAPI() -> Preferences {
         print("preference called")
         var preferences = Preferences(status: "not ok",gluten_free: false, vegan: false, scd: false, nuts: false, lactose: false)
-        let Url = String(format: "http://apptesting.getsandbox.com/preferences")
+        let Url = String(format: "https://healthyeatingapp.com/api/preferences")
         guard let serviceUrl = URL(string: Url) else { return preferences }
         let parameterDictionary = ["token" : FBSDKAccessToken.current()?.tokenString]
         var request = URLRequest(url: serviceUrl)
@@ -216,7 +214,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func callHomeAPI() {
-        let Url = String(format: "http://apptesting.getsandbox.com/home3")
+        let Url = String(format: "https://healthyeatingapp.com/api/restaurants")
         guard let serviceUrl = URL(string: Url) else { return }
         print("location here?", self.location?.coordinate.longitude)
         let parameterDictionary = ["latitude" : self.location?.coordinate.latitude,
@@ -279,7 +277,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))
             let marker = GMSMarker(position: position)
             marker.title = restaurant.name
-           
+            var marker_string = restaurant.address + "\n"
+            let last_item = restaurant.menu_items[restaurant.menu_items.count - 1].item_name
+            for item in restaurant.menu_items {
+                if(item.item_name != last_item) {
+                    marker_string += item.item_name + ", "
+                }
+                else {
+                    marker_string += item.item_name
+                }
+            }
+            marker.snippet = marker_string
+            
             marker.position = position
             print(marker.position)
             marker.map = self.mapView
@@ -301,6 +310,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
 }
 
+
+
 // MARK: - CLLocationManagerDelegate
 //1
 extension MapViewController {
@@ -320,7 +331,7 @@ extension MapViewController {
         print("location!", self.location?.coordinate.longitude)
         
         // 7
-        mapView.camera = GMSCameraPosition(target: (self.location?.coordinate)!, zoom: 15, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: (self.location?.coordinate)!, zoom: 10, bearing: 0, viewingAngle: 0)
         
         // 8
         locationManager.stopUpdatingLocation()
