@@ -240,7 +240,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                    print("json!", json)
                     self.home_data = try JSONDecoder().decode(Restaurants.self, from: data)
                     print("self.home_data", self.home_data)
-                    print("first name",self.home_data?.restaurant_list[0].name)
+                    //print("first name",self.home_data?.restaurant_list[0].name)
                     self.updateData()
                 }catch {
                     print(error)
@@ -268,7 +268,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         //let marker = GMSMarker()
         print("started to execute")
         print("self.home_data", self.home_data)
-        print("first name final",self.home_data!.restaurant_list[0].name)
+        //print("first name final",self.home_data!.restaurant_list[0].name)
         //var marker2 = GMSMarker()
         for restaurant in (self.home_data?.restaurant_list)! {
         //let restaurant = self.home_data!.restaurant_list[0]
