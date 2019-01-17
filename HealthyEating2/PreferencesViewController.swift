@@ -114,6 +114,8 @@ class PreferenceViewController: UIViewController {
                 }
             }
             }.resume()
+        let map_controller = self.parent?.children[0] as! MapViewController
+        map_controller.callHomeAPI()
     }
     
     override func viewDidLoad() {

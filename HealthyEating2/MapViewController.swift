@@ -264,6 +264,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     
     func updateData() {
+        self.mapView.clear()
         //let marker = GMSMarker()
         print("started to execute")
         print("self.home_data", self.home_data)
