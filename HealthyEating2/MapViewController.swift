@@ -241,7 +241,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     self.home_data = try JSONDecoder().decode(Restaurants.self, from: data)
                     print("self.home_data", self.home_data)
                     //print("first name",self.home_data?.restaurant_list[0].name)
-                    self.updateData()
+                    DispatchQueue.main.async {
+                        self.updateData()
+                    }
                 }catch {
                     print(error)
                 }

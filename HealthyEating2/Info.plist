@@ -4,10 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>HealthyEats</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>bhavna.HealthyEating2</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -39,24 +41,24 @@
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-        <string>fbapi</string>
-        <string>fbapi20130214</string>
-        <string>fbapi20130410</string>
-        <string>fbapi20130702</string>
-        <string>fbapi20131010</string>
-        <string>fbapi20131219</string>
-        <string>fbapi20140410</string>
-        <string>fbapi20140116</string>
-        <string>fbapi20150313</string>
-        <string>fbapi20150629</string>
-        <string>fbauth</string>
-        <string>fbauth2</string>
-        <string>fb</string>
-        <string>fb-messenger-api20140430</string>
-        <string>fb-messenger-platform-20150128</string>
-        <string>fb-messenger-platform-20150218</string>
-        <string>fb-messenger-platform-20150305</string>
-        <string>fb-messenger-api</string>
+		<string>fbapi</string>
+		<string>fbapi20130214</string>
+		<string>fbapi20130410</string>
+		<string>fbapi20130702</string>
+		<string>fbapi20131010</string>
+		<string>fbapi20131219</string>
+		<string>fbapi20140410</string>
+		<string>fbapi20140116</string>
+		<string>fbapi20150313</string>
+		<string>fbapi20150629</string>
+		<string>fbauth</string>
+		<string>fbauth2</string>
+		<string>fb</string>
+		<string>fb-messenger-api20140430</string>
+		<string>fb-messenger-platform-20150128</string>
+		<string>fb-messenger-platform-20150218</string>
+		<string>fb-messenger-platform-20150305</string>
+		<string>fb-messenger-api</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -65,6 +67,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need to detect your current location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need to detect your current location.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -79,10 +85,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need to detect your current location.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We need to detect your current location.</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
